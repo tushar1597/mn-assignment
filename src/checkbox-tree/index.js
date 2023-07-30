@@ -17,11 +17,12 @@ const CheckboxTree = ({ data }) => {
 
   return (
     <div>
-      <h3>Checkbox Tree</h3>
+      {/* <h3>Checkbox Tree</h3> */}
       <ul className={`${list} ${parentList}`}>
-        <span className={pathLine} />
+        {/* <span className={pathLine} /> */}
         {data.map((node) => (
           <li key={node.id}>
+            <span className={pathLine} />
             <TreeNode
               node={node}
               onCheck={handleCheck}

@@ -1,13 +1,18 @@
 .parentList {
-  overflow: hidden;
+  /* overflow: hidden; */
+  padding: 2rem 0;
 }
-.parentList > .pathLine {
-  /* height: calc(100% - 2.78rem); */
-  /* top: 0.6rem; */
-  height: calc(100% - 1.125rem - 1.5rem);
-  top: 0.563rem;
-  background-color: red;
+.parentList > li > .checkboxLineWrapper > .itemPathLine {
+  display: none;
 }
+
+/* .parentList > .pathLine { */
+/* height: calc(100% - 2.78rem); */
+/* top: 0.6rem; */
+/* height: calc(100% - 1.125rem - 1.5rem); */
+/* top: 0.563rem; */
+/* background-color: red; */
+/* } */
 
 .list {
   list-style: none;
@@ -20,17 +25,72 @@
   /* border-left: 1px solid #000; */
   box-sizing: border-box;
 }
+.list li {
+  /* background-color: lightcyan; */
+  position: relative;
+  /* display: flex; */
+  /* border: 1px solid black; */
+}
+
+.list li:last-child .pathLine {
+  /* background-color: cadetblue; */
+  height: calc(100% - 2rem);
+}
+
+/* .list li:last-child .pathLine {
+  height: 10px;
+  width: 10px;
+  display: block;
+  position: absolute;
+  background-color: brown;
+} */
+
+.list li:last-child .hidderr {
+  width: 4px;
+  height: 50%;
+  display: block;
+  position: absolute;
+  /* background-color: #fff; */
+  background-color: blue;
+  left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
+  bottom: 0;
+  transform: translate(-50%, 0);
+  z-index: 1;
+}
+.list li {
+  background-color: #fff;
+}
+.list > li:first-child {
+  /* background-color: aqua; */
+}
+.list > li:first-child > .checkboxLineWrapper > .hidderr {
+  width: 4px;
+  height: 50%;
+  display: block;
+  position: absolute;
+  /* background-color: #fff; */
+  background-color: red;
+  z-index: 1;
+  left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
+  top: 0;
+  transform: translate(-50%, 0);
+}
+
 .pathLine {
   width: 0px;
   /* background-color: black; */
   border-left: 1px dashed #cad1d4;
   position: absolute;
+  /* height: calc(100% + 2rem - 0.5rem);  */
   height: 100%;
   display: inline-block;
-  top: -2.2rem;
+  /* top: -2.2rem; */
+  /* top: calc(-2rem - 1rem);  */
+  top: 0;
+  /* background-color: blueviolet; */
   left: calc(2rem + 0.5rem);
   /* display: none; */
-  z-index: -1;
+  z-index: 1;
 }
 .itemPathLine {
   height: 0px;
@@ -39,16 +99,21 @@
   position: absolute;
   width: calc(2rem - 0.5rem);
   display: inline-block;
-  top: 0.563rem;
+  transform: translate(0, -50%);
+  /* top: 0.563rem; */
   left: 0.5rem;
+  top: 50%;
+  /* left: 50%; */
   /* left: calc(2rem + 0.5rem); */
   /* display: none; */
-  z-index: -1;
+  z-index: 1;
 }
 .checkboxLineWrapper {
-  display: block;
+  display: inline-block;
   /* background-color: orange; */
   position: relative;
+  padding-left: 2rem;
+  margin-bottom: 2rem;
 }
 .expandTrue {
   /* z-index: -1; */
@@ -65,19 +130,25 @@
   margin: 0;
 }
 .nestedWrapper {
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
   /* border: 1px solid black; */
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
 }
 
 .baseWrapper {
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
   /* border: 1px solid red; */
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
 }
 
 .expandBtnWrapper {
   z-index: 1;
   position: absolute;
+  display: flex;
+  left: 0;
+  top: 50%;
+  z-index: 2;
+  /* top: 50%; */
+  transform: translate(0, -50%);
   /* display: none; */
 }

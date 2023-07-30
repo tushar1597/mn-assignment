@@ -25,6 +25,7 @@
   border-radius: 4px;
   position: relative;
   box-sizing: border-box;
+  z-index: 2;
 }
 
 .customCheckbox.active::after {
@@ -52,14 +53,15 @@
 }
 
 .text {
-  background-color: yellow;
+  /* background-color: yellow; */
   margin-left: 0.75rem;
   font-size: 0.875rem;
+  font-weight: 400;
   font-family: "Poppins", sans-serif;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  max-width: 50px;
+  max-width: 8rem;
 }

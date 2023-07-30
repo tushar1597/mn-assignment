@@ -27,16 +27,11 @@ const TreeNodeView = ({
     pathLine,
     itemPathLine,
     checkboxLineWrapper,
+    hidder,
   } = styles;
   console.log(isChecked, node.name);
   return (
     <>
-      {node.children.length > 0 ? (
-        <span className={expandBtnWrapper}>
-          <ExpandButton isExpanded={isExpanded} onClick={handleExpand} />
-        </span>
-      ) : // <button onClick={handleExpand}>{isExpanded ? "-" : "+"}</button>
-      null}
       {/* <input
         type="checkbox"
         checked={isChecked}
@@ -46,7 +41,12 @@ const TreeNodeView = ({
       />
       <label for={node.id}>{node.name}</label> */}
       <span className={checkboxLineWrapper}>
-        {/* <span> */}
+        {node.children.length > 0 ? (
+          <span className={expandBtnWrapper}>
+            <ExpandButton isExpanded={isExpanded} onClick={handleExpand} />
+          </span>
+        ) : null}
+
         <span className={itemPathLine} />
         <Checkbox
           label={node.name}
@@ -62,14 +62,19 @@ const TreeNodeView = ({
           id={node.id}
           reference={currentNodeRef}
         />
-        {/* </span> */}
       </span>
       {/* <button onClick={getDetails}>get</button> */}
       {node.children && node.children.length > 0 && (
         <ul className={`${list} ${isExpanded ? expandTrue : expandFalse}`}>
-          <span className={pathLine} />
+          {/* <span className={pathLine} /> */}
           {node.children.map((child) => (
             <li key={child.id}>
+              {child.children && child.children.length > 0 && isExpanded ? (
+                <>
+                  <span className={hidder} />
+                  <span className={pathLine} />
+                </>
+              ) : null}
               <TreeNode
                 node={child}
                 onCheck={onCheck}
