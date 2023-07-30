@@ -5,27 +5,30 @@ const sortFlatArray = (flatArray) => {
 };
 
 export function createNestedArray(flatArray) {
-  const nestedArray = [];
+  let nestedArray = [];
   const itemMap = {};
 
-  sortFlatArray(flatArray);
+  try {
+    sortFlatArray(flatArray);
 
-  // Creating a hash map of items based on their parentId
-  flatArray.forEach((item) => {
-    item.children = [];
-    itemMap[item.id] = item;
-    if (item.parentId === null) {
-      nestedArray.push(item);
-    }
-  });
+    // Creating a hash map of items based on their parentId
+    flatArray.forEach((item) => {
+      item.children = [];
+      itemMap[item.id] = item;
+      if (item.parentId === null) {
+        nestedArray.push(item);
+      }
+    });
 
-  // Assigning children to their respective parents
-  flatArray.forEach((item) => {
-    if (item.parentId !== null) {
-      itemMap[item.parentId].children.push(item);
-    }
-  });
-
+    // Assigning children to their respective parents
+    flatArray.forEach((item) => {
+      if (item.parentId !== null) {
+        itemMap[item.parentId].children.push(item);
+      }
+    });
+  } catch (err) {
+    nestedArray = [];
+  }
   return nestedArray;
 }
 
