@@ -1,4 +1,3 @@
-// Working code
 import React, { useEffect, useState, useRef } from "react";
 import CheckboxTree from "./checkbox-tree";
 import Checkbox from "./components/checkbox";
@@ -310,6 +309,7 @@ const Demo = () => {
 
 function App() {
   const data = [
+    { id: "0-2", parentId: null, name: "Rugby", children: [] },
     {
       id: "0-0",
       parentId: null,
@@ -384,7 +384,6 @@ function App() {
       ],
     },
     { id: "0-1", parentId: null, name: "Soccer", children: [] },
-    { id: "0-2", parentId: null, name: "Rugby", children: [] },
   ];
 
   console.log(data.length);
@@ -392,7 +391,7 @@ function App() {
   return (
     <>
       <CheckboxTree data={data} />
-      <Checkbox label={"Hello"} />
+      {/* <Checkbox label={"Hello"} /> */}
     </>
   );
   // return <Demo />;

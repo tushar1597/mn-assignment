@@ -1,0 +1,83 @@
+.parentList {
+  overflow: hidden;
+}
+.parentList > .pathLine {
+  /* height: calc(100% - 2.78rem); */
+  /* top: 0.6rem; */
+  height: calc(100% - 1.125rem - 1.5rem);
+  top: 0.563rem;
+  background-color: red;
+}
+
+.list {
+  list-style: none;
+  /* padding: 0; */
+  padding-left: 2rem;
+  margin: 0;
+  position: relative;
+  /* transition: all ease 0.3s; */
+  /* overflow: hidden; */
+  /* border-left: 1px solid #000; */
+  box-sizing: border-box;
+}
+.pathLine {
+  width: 0px;
+  /* background-color: black; */
+  border-left: 1px dashed #cad1d4;
+  position: absolute;
+  height: 100%;
+  display: inline-block;
+  top: -2.2rem;
+  left: calc(2rem + 0.5rem);
+  /* display: none; */
+  z-index: -1;
+}
+.itemPathLine {
+  height: 0px;
+  border-bottom: 1px dashed #cad1d4;
+  /* background-color: black; */
+  position: absolute;
+  width: calc(2rem - 0.5rem);
+  display: inline-block;
+  top: 0.563rem;
+  left: 0.5rem;
+  /* left: calc(2rem + 0.5rem); */
+  /* display: none; */
+  z-index: -1;
+}
+.checkboxLineWrapper {
+  display: block;
+  /* background-color: orange; */
+  position: relative;
+}
+.expandTrue {
+  /* z-index: -1; */
+  max-height: 100rem;
+}
+.expandFalse {
+  max-height: 0;
+  /* opacity: 0; */
+
+  overflow: hidden;
+}
+.list li {
+  padding: 0;
+  margin: 0;
+}
+.nestedWrapper {
+  margin-left: 2rem;
+  /* border: 1px solid black; */
+  margin-bottom: 1.5rem;
+}
+
+.baseWrapper {
+  margin-left: 2rem;
+  /* border: 1px solid red; */
+  margin-bottom: 1.5rem;
+}
+
+.expandBtnWrapper {
+  z-index: 1;
+  position: absolute;
+  /* display: none; */
+}

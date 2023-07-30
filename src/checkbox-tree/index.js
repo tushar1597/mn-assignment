@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import TreeNode from "./tree-node";
+import styles from "./checkbox-tree.module.css";
 
 const CheckboxTree = ({ data }) => {
   const [checkedItems, setCheckedItems] = useState({});
+  const { list, pathLine, parentList } = styles;
 
   const handleCheck = (itemId, isChecked) => {
     setCheckedItems((prevState) => ({
@@ -16,7 +18,8 @@ const CheckboxTree = ({ data }) => {
   return (
     <div>
       <h3>Checkbox Tree</h3>
-      <ul>
+      <ul className={`${list} ${parentList}`}>
+        <span className={pathLine} />
         {data.map((node) => (
           <li key={node.id}>
             <TreeNode

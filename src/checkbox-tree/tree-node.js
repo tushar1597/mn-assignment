@@ -12,7 +12,7 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
   const currentNodeRef = useRef(null);
   const [childCheckCount, setChildCheckCount] = useState(null);
   const [childIndeterminateCount, setChildIndeterminateCount] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   useEffect(() => {
     node.children.map(({ id, name, defaultState }) => {
@@ -196,6 +196,7 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
   };
 
   const handleExpand = () => {
+    console.log("Handle Expand called");
     setIsExpanded(!isExpanded);
   };
 

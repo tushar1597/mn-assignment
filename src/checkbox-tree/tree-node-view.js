@@ -1,4 +1,5 @@
 import Checkbox from "../components/checkbox";
+import ExpandButton from "../components/expand-button";
 import styles from "./checkbox-tree.module.css";
 import TreeNode from "./tree-node";
 
@@ -16,12 +17,26 @@ const TreeNodeView = ({
   updateParent,
   //   getDetails,
 }) => {
+  const {
+    list,
+    nestedWrapper,
+    baseWrapper,
+    expandBtnWrapper,
+    expandTrue,
+    expandFalse,
+    pathLine,
+    itemPathLine,
+    checkboxLineWrapper,
+  } = styles;
   console.log(isChecked, node.name);
   return (
-    <div>
+    <>
       {node.children.length > 0 ? (
-        <button onClick={handleExpand}>{isExpanded ? "-" : "+"}</button>
-      ) : null}
+        <span className={expandBtnWrapper}>
+          <ExpandButton isExpanded={isExpanded} onClick={handleExpand} />
+        </span>
+      ) : // <button onClick={handleExpand}>{isExpanded ? "-" : "+"}</button>
+      null}
       {/* <input
         type="checkbox"
         checked={isChecked}
@@ -30,18 +45,29 @@ const TreeNodeView = ({
         ref={currentNodeRef}
       />
       <label for={node.id}>{node.name}</label> */}
-      <Checkbox
-        label={node.name}
-        isIndeterminate={isIndeterminate}
-        onChange={handleCheck}
-        // checked={isChecked}
-        isChecked={isChecked}
-        id={node.id}
-        reference={currentNodeRef}
-      />
+      <span className={checkboxLineWrapper}>
+        {/* <span> */}
+        <span className={itemPathLine} />
+        <Checkbox
+          label={node.name}
+          isIndeterminate={isIndeterminate}
+          onChange={handleCheck}
+          // checked={isChecked}
+          wrapperClasses={
+            node.children && node.children.length > 0
+              ? nestedWrapper
+              : baseWrapper
+          }
+          isChecked={isChecked}
+          id={node.id}
+          reference={currentNodeRef}
+        />
+        {/* </span> */}
+      </span>
       {/* <button onClick={getDetails}>get</button> */}
       {node.children && node.children.length > 0 && (
-        <ul>
+        <ul className={`${list} ${isExpanded ? expandTrue : expandFalse}`}>
+          <span className={pathLine} />
           {node.children.map((child) => (
             <li key={child.id}>
               <TreeNode
@@ -55,7 +81,7 @@ const TreeNodeView = ({
           ))}
         </ul>
       )}
-    </div>
+    </>
   );
 };
 

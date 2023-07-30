@@ -9,14 +9,16 @@ const Checkbox = ({
   isChecked,
   id,
   reference,
+  wrapperClasses,
 }) => {
   const { checkboxWrapper, customCheckbox, active, text, indeterminate } =
     styles;
 
   console.log(isChecked, label);
   return (
-    <span className={checkboxWrapper}>
-      <label htmlFor={id}>
+    <>
+      {/* <span className={checkboxWrapper}> */}
+      <label htmlFor={id} className={`${checkboxWrapper} ${wrapperClasses}`}>
         <input
           type="checkbox"
           checked={isChecked}
@@ -32,7 +34,8 @@ const Checkbox = ({
         <span className={text}>{label}</span>
       </label>
       {/* <label htmlFor={id}>{label}</label> */}
-    </span>
+      {/* </span> */}
+    </>
   );
 };
 
