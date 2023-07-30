@@ -1,0 +1,107 @@
+.parentList {
+  padding: 2rem 0;
+}
+.parentList > li > .checkboxLineWrapper > .itemPathLine {
+  display: none;
+}
+
+.list {
+  list-style: none;
+  padding-left: 2rem;
+  margin: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+.list li {
+  position: relative;
+}
+
+.list li:last-child > .pathLine {
+  height: calc(100% - 2rem);
+}
+.list > li:last-child > .hidder,
+.list > li:last-child > .checkboxLineWrapper .hidder,
+.list > li:first-child > .hidder,
+.list > li:first-child > .checkboxLineWrapper > .hidder {
+  width: 4px;
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
+  transform: translate(-50%, 0);
+  z-index: 1;
+}
+
+.list > li:last-child > .hidder {
+  height: calc(2rem);
+  bottom: 0;
+}
+
+.list > li:last-child > .checkboxLineWrapper .hidder {
+  height: 50%;
+  bottom: 0;
+}
+
+.list > li:first-child > .hidder {
+  height: calc(0.563rem);
+  top: 0;
+}
+
+.list > li:first-child > .checkboxLineWrapper > .hidder {
+  height: 50%;
+  top: 0;
+}
+
+.list li {
+  background-color: #fff;
+}
+
+.pathLine,
+.itemPathLine {
+  position: absolute;
+  display: inline-block;
+  z-index: 1;
+}
+
+.pathLine {
+  width: 0px;
+  border-left: 1px dashed #cad1d4;
+  height: 100%;
+  top: 0;
+  left: calc(2rem + 0.5rem);
+}
+.itemPathLine {
+  height: 0px;
+  border-bottom: 1px dashed #cad1d4;
+  width: calc(2rem - 0.5rem);
+  transform: translate(0, -50%);
+  left: 0.5rem;
+  top: 50%;
+}
+.checkboxLineWrapper {
+  display: inline-block;
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+}
+.expandTrue {
+  max-height: 100rem;
+}
+.expandFalse {
+  max-height: 0;
+  overflow: hidden;
+}
+.list li {
+  padding: 0;
+  margin: 0;
+}
+
+.expandBtnWrapper {
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  left: 0;
+  top: 50%;
+  z-index: 2;
+  transform: translate(0, -50%);
+}

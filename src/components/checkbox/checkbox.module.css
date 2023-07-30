@@ -1,0 +1,62 @@
+.checkboxWrapper {
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkboxWrapper input[type="checkbox"] {
+  left: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.customCheckbox {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 1px solid #cad1d4;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 4px;
+  position: relative;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.customCheckbox.active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.625rem;
+  height: 0.625rem;
+  background-color: var(--active-color, royalblue);
+  border-radius: 50%;
+}
+
+.customCheckbox.indeterminate::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.625rem;
+  height: 3px;
+  background-color: var(--active-color, royalblue);
+  border-radius: 2px;
+}
+
+.text {
+  margin-left: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  max-width: 8rem;
+}
