@@ -1,5 +1,5 @@
 export const STATES = {
-  UNCHECKED: 1,
+  UNCHECKED: 0,
+  CHECKED: 1,
   INDETERMIATE: 2,
-  CHECKED: 3,
 };

@@ -2,7 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { STATES } from "../utils/constants";
 import TreeNodeView from "./tree-node-view";
 
-const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
+const TreeNode = ({
+  node,
+  updateResponse,
+  updateParent,
+  forceUpdate,
+  forceValue,
+}) => {
   const [boxState, setBoxState] = useState(
     node.defaultState || STATES.UNCHECKED
   );
@@ -22,28 +28,23 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
     setChildCheckCount(getChildCheckedCount() || null);
 
     return () => {
-      // console.log("D5");
       clickedCheckBoxIdRef.current = null;
     };
   }, []);
 
   useEffect(() => {
-    console.log("UE::1", childCheckCount, node.name);
     if (
       node.children.length > 0 &&
       childCheckCount === node.children.length &&
       !forceUpdateChildren
     ) {
-      console.log("B1", node.name);
-      updateChecks("UP::1");
+      updateChecks();
     } else if (
       ((boxState === STATES.CHECKED &&
         childCheckCount === node.children.length) ||
         (boxState === STATES.UNCHECKED && childCheckCount === 0)) &&
       forceUpdateChildren
     ) {
-      console.log("B2", node.name);
-      console.log("setting set-Force-Update-Children false", node.name);
       setForceUpdateChildren(false);
     } else {
       if (
@@ -51,18 +52,14 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
         childCheckCount !== 0 &&
         childCheckCount !== node.children.length
       ) {
-        console.log("B3", node.name);
-        updateChecks("UP::2");
-        // currentNodeRef.current.indeterminate = true;
+        updateChecks();
       }
 
       if (childCheckCount === 0 && boxState !== STATES.UNCHECKED) {
-        console.log("B4", node.name);
-        updateChecks("UP::3");
+        updateChecks();
       }
     }
     return () => {
-      console.log("D1");
       clickedCheckBoxIdRef.current = null;
     };
   }, [childCheckCount]);
@@ -71,23 +68,18 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
     if (childIndeterminateCount === null) {
       return;
     }
-    // if (childIndeterminateCount > 0) {
-    console.log("childIndeterminateCount::", node.name);
-    updateChecks("UP::4");
-    // }
+
+    updateChecks();
     return () => {
-      console.log("D2");
       clickedCheckBoxIdRef.current = null;
     };
   }, [childIndeterminateCount]);
 
   useEffect(() => {
     if (forceUpdate) {
-      console.log("FU::", node.id, node.name, forceValue);
-      updateChecks("UP::5");
+      updateChecks();
     }
     return () => {
-      console.log("D3");
       clickedCheckBoxIdRef.current = null;
     };
   }, [forceUpdate]);
@@ -99,41 +91,24 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
         childCheckCount !== node.children.length) ||
       (boxState === STATES.UNCHECKED && childCheckCount > 0)
     ) {
-      console.log("Force Children update true", node.name);
       setForceUpdateChildren(true);
     }
     return () => {
-      console.log("D4");
       clickedCheckBoxIdRef.current = null;
     };
   }, [boxState]);
 
   const handleCheck = (e) => {
     clickedCheckBoxIdRef.current = e.target;
-    console.log(
-      "Handle Check::>>",
-      e.currentTarget,
-      e.target,
-      clickedCheckBoxIdRef.current
-    );
-    updateChecks("UP::6");
+    updateChecks();
   };
 
-  const updateChecks = (from) => {
-    console.log(from);
-
+  const updateChecks = () => {
     let value;
 
     if (clickedCheckBoxIdRef.current?.id === node.id) {
-      // console.log(
-      //   "Set-1",
-      //   clickedCheckBoxIdRef.current,
-      //   node.id,
-      //   clickedCheckBoxIdRef.current
-      // );
       value = boxState === STATES.CHECKED ? STATES.UNCHECKED : STATES.CHECKED;
     } else {
-      // console.log("Set-2");
       value = forceUpdate
         ? forceValue
         : (childCheckCount > 0 && childCheckCount < node.children.length) ||
@@ -143,25 +118,19 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
         ? STATES.CHECKED
         : STATES.UNCHECKED;
     }
-    // value = isDefault ? node.defaultState : value;
 
     if (value === STATES.INDETERMIATE) {
       currentNodeRef.current.indeterminate = true;
     } else {
       currentNodeRef.current.indeterminate = false;
     }
-    console.log("value:", value, node.name);
-    console.log(
-      node.name,
-      childCheckCount > 0 && childCheckCount === node.children.length
-    );
 
     setBoxState(value);
-    // console.log("Updating parent:", node.id, value);
     updateParent(node.id, value);
-    onCheck(
+    updateResponse(
       node.id,
-      boxState === STATES.UNCHECKED ? STATES.CHECKED : STATES.UNCHECKED
+      //   boxState === STATES.UNCHECKED ? STATES.CHECKED : STATES.UNCHECKED
+      value === STATES.CHECKED ? STATES.CHECKED : STATES.UNCHECKED
     );
   };
 
@@ -200,57 +169,7 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
     setIsExpanded(!isExpanded);
   };
 
-  const getDetails = () => {
-    console.log({
-      id: node.id,
-      name: node.name,
-      childMap: childMapRef.current,
-      forceUpdate,
-      forceUpdateChildren,
-      forceValue,
-      isChecked: boxState === STATES.CHECKED,
-      boxState,
-      // childCheckedCount: getChildCheckedCount(),
-      childCheckCount,
-      childIndeterminateCount,
-      currentElem: clickedCheckBoxIdRef.current,
-    });
-  };
-
   return (
-    // <div>
-    //   {node.children.length > 0 ? (
-    //     <button onClick={handleExpand}>{isExpanded ? "-" : "+"}</button>
-    //   ) : null}
-    //   <input
-    //     type="checkbox"
-    //     checked={boxState === STATES.CHECKED}
-    //     onChange={handleCheck}
-    //     id={node.id}
-    //     ref={currentNodeRef}
-    //   />
-    //   <label for={node.id}>{node.name}</label>
-    //   {/* <button onClick={getDetails}>get</button> */}
-    //   {node.children && node.children.length > 0 && (
-    //     <ul>
-    //       {node.children.map((child) => (
-    //         <li key={child.id}>
-    //           <TreeNode
-    //             node={child}
-    //             onCheck={onCheck}
-    //             updateParent={handleChildCheck}
-    //             forceUpdate={forceUpdateChildren}
-    //             forceValue={
-    //               boxState === STATES.CHECKED
-    //                 ? STATES.CHECKED
-    //                 : STATES.UNCHECKED
-    //             }
-    //           />
-    //         </li>
-    //       ))}
-    //     </ul>
-    //   )}
-    // </div>
     <TreeNodeView
       node={node}
       isExpanded={isExpanded}
@@ -260,8 +179,7 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
         boxState === STATES.CHECKED ? STATES.CHECKED : STATES.UNCHECKED
       }
       forceUpdate={forceUpdateChildren}
-      onCheck={onCheck}
-      //   getDetails={getDetails}
+      updateResponse={updateResponse}
       isIndeterminate={boxState === STATES.INDETERMIATE}
       currentNodeRef={currentNodeRef}
       handleCheck={handleCheck}

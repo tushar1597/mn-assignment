@@ -1,171 +1,99 @@
 .parentList {
-  /* overflow: hidden; */
   padding: 2rem 0;
 }
 .parentList > li > .checkboxLineWrapper > .itemPathLine {
   display: none;
 }
 
-/* .parentList > .pathLine { */
-/* height: calc(100% - 2.78rem); */
-/* top: 0.6rem; */
-/* height: calc(100% - 1.125rem - 1.5rem); */
-/* top: 0.563rem; */
-/* background-color: red; */
-/* } */
-
 .list {
   list-style: none;
-  /* padding: 0; */
   padding-left: 2rem;
   margin: 0;
   position: relative;
-  /* transition: all ease 0.3s; */
-  /* overflow: hidden; */
-  /* border-left: 1px solid #000; */
   box-sizing: border-box;
 }
 .list li {
-  /* background-color: lightcyan; */
   position: relative;
-  /* display: flex; */
-  /* border: 1px solid black; */
 }
 
 .list li:last-child > .pathLine {
-  /* background-color: cadetblue; */
   height: calc(100% - 2rem);
 }
-
-/* .list li:last-child .pathLine {
-  height: 10px;
-  width: 10px;
-  display: block;
-  position: absolute;
-  background-color: brown;
-} */
-
-.list > li:last-child > .hidder {
+.list > li:last-child > .hidder,
+.list > li:last-child > .checkboxLineWrapper .hidder,
+.list > li:first-child > .hidder,
+.list > li:first-child > .checkboxLineWrapper > .hidder {
   width: 4px;
-  height: calc(2rem);
   display: block;
   position: absolute;
   background-color: #fff;
-  /* background-color: rgb(119, 29, 119); */
   left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
-  bottom: 0;
   transform: translate(-50%, 0);
   z-index: 1;
+}
+
+.list > li:last-child > .hidder {
+  height: calc(2rem);
+  bottom: 0;
 }
 
 .list > li:last-child > .checkboxLineWrapper .hidder {
-  width: 4px;
   height: 50%;
-  display: block;
-  position: absolute;
-  background-color: #fff;
-  /* background-color: blue; */
-  left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
   bottom: 0;
-  transform: translate(-50%, 0);
-  z-index: 1;
-}
-.list li {
-  background-color: #fff;
-}
-.list > li:first-child {
-  /* background-color: aqua; */
 }
 
 .list > li:first-child > .hidder {
-  width: 4px;
   height: calc(0.563rem);
-  display: block;
-  position: absolute;
-  background-color: #fff;
-  /* background-color: rgb(255, 0, 132); */
-  z-index: 1;
-  left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
   top: 0;
-  transform: translate(-50%, 0);
 }
 
 .list > li:first-child > .checkboxLineWrapper > .hidder {
-  width: 4px;
   height: 50%;
-  display: block;
-  position: absolute;
-  background-color: #fff;
-  /* background-color: red; */
-  z-index: 1;
-  left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
   top: 0;
-  transform: translate(-50%, 0);
+}
+
+.list li {
+  background-color: #fff;
+}
+
+.pathLine,
+.itemPathLine {
+  position: absolute;
+  display: inline-block;
+  z-index: 1;
 }
 
 .pathLine {
   width: 0px;
-  /* background-color: black; */
   border-left: 1px dashed #cad1d4;
-  position: absolute;
-  /* height: calc(100% + 2rem - 0.5rem);  */
   height: 100%;
-  display: inline-block;
-  /* top: -2.2rem; */
-  /* top: calc(-2rem - 1rem);  */
   top: 0;
-  /* background-color: blueviolet; */
   left: calc(2rem + 0.5rem);
-  /* display: none; */
-  z-index: 1;
 }
 .itemPathLine {
   height: 0px;
   border-bottom: 1px dashed #cad1d4;
-  /* background-color: black; */
-  position: absolute;
   width: calc(2rem - 0.5rem);
-  display: inline-block;
   transform: translate(0, -50%);
-  /* top: 0.563rem; */
   left: 0.5rem;
   top: 50%;
-  /* left: 50%; */
-  /* left: calc(2rem + 0.5rem); */
-  /* display: none; */
-  z-index: 1;
 }
 .checkboxLineWrapper {
   display: inline-block;
-  /* background-color: orange; */
   position: relative;
   padding-left: 2rem;
   margin-bottom: 2rem;
 }
 .expandTrue {
-  /* z-index: -1; */
   max-height: 100rem;
 }
 .expandFalse {
   max-height: 0;
-  /* opacity: 0; */
-
   overflow: hidden;
 }
 .list li {
   padding: 0;
   margin: 0;
-}
-.nestedWrapper {
-  /* margin-left: 2rem; */
-  /* border: 1px solid black; */
-  /* margin-bottom: 1.5rem; */
-}
-
-.baseWrapper {
-  /* margin-left: 2rem; */
-  /* border: 1px solid red; */
-  /* margin-bottom: 1.5rem; */
 }
 
 .expandBtnWrapper {
@@ -175,7 +103,5 @@
   left: 0;
   top: 50%;
   z-index: 2;
-  /* top: 50%; */
   transform: translate(0, -50%);
-  /* display: none; */
 }

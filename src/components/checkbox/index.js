@@ -1,6 +1,4 @@
-// import { useState } from "react";
 import styles from "./checkbox.module.css";
-// import { STATES } from "../../utils/constants";
 
 const Checkbox = ({
   label,
@@ -14,10 +12,8 @@ const Checkbox = ({
   const { checkboxWrapper, customCheckbox, active, text, indeterminate } =
     styles;
 
-  console.log(isChecked, label);
   return (
     <>
-      {/* <span className={checkboxWrapper}> */}
       <label htmlFor={id} className={`${checkboxWrapper} ${wrapperClasses}`}>
         <input
           type="checkbox"
@@ -33,8 +29,6 @@ const Checkbox = ({
         ></span>
         <span className={text}>{label}</span>
       </label>
-      {/* <label htmlFor={id}>{label}</label> */}
-      {/* </span> */}
     </>
   );
 };
