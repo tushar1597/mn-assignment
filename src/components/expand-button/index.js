@@ -1,6 +1,8 @@
 import styles from "./expand-button.module.css";
 import plusIcon from "../../assets/svg-icons/plus-icon.svg";
 import minusIcon from "../../assets/svg-icons/minus-icon.svg";
+import PropTypes from "prop-types";
+import { noop } from "../../utils/helpers";
 
 const ExpandButton = ({ isExpanded, onClick }) => {
   const { button, svg } = styles;
@@ -13,6 +15,16 @@ const ExpandButton = ({ isExpanded, onClick }) => {
       )}
     </button>
   );
+};
+
+ExpandButton.propTypes = {
+  isExpanded: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+ExpandButton.defaultProps = {
+  isExpanded: true,
+  onClick: noop,
 };
 
 export default ExpandButton;

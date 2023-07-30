@@ -28,3 +28,5 @@ export function createNestedArray(flatArray) {
 
   return nestedArray;
 }
+
+export const noop = () => {};

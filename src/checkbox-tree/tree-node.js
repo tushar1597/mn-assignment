@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { STATES } from "../utils/constants";
 import TreeNodeView from "./tree-node-view";
+import PropTypes from "prop-types";
+import { noop } from "../utils/helpers";
 
 const TreeNode = ({
   node,
@@ -10,7 +12,7 @@ const TreeNode = ({
   forceValue,
 }) => {
   const [boxState, setBoxState] = useState(
-    node.defaultState || STATES.UNCHECKED
+    node?.defaultState || STATES.UNCHECKED
   );
   const [forceUpdateChildren, setForceUpdateChildren] = useState(false);
   const childMapRef = useRef({});
@@ -21,7 +23,7 @@ const TreeNode = ({
   const [isExpanded, setIsExpanded] = useState(true);
 
   useEffect(() => {
-    node.children.map(({ id, name, defaultState }) => {
+    node?.children?.map(({ id, name, defaultState }) => {
       childMapRef.current[id] = defaultState || STATES.UNCHECKED;
     });
 
@@ -34,14 +36,14 @@ const TreeNode = ({
 
   useEffect(() => {
     if (
-      node.children.length > 0 &&
-      childCheckCount === node.children.length &&
+      node?.children?.length > 0 &&
+      childCheckCount === node?.children?.length &&
       !forceUpdateChildren
     ) {
       updateChecks();
     } else if (
       ((boxState === STATES.CHECKED &&
-        childCheckCount === node.children.length) ||
+        childCheckCount === node?.children?.length) ||
         (boxState === STATES.UNCHECKED && childCheckCount === 0)) &&
       forceUpdateChildren
     ) {
@@ -50,7 +52,7 @@ const TreeNode = ({
       if (
         childCheckCount !== null &&
         childCheckCount !== 0 &&
-        childCheckCount !== node.children.length
+        childCheckCount !== node?.children?.length
       ) {
         updateChecks();
       }
@@ -87,8 +89,8 @@ const TreeNode = ({
   useEffect(() => {
     if (
       (boxState === STATES.CHECKED &&
-        node.children.length > 0 &&
-        childCheckCount !== node.children.length) ||
+        node?.children?.length > 0 &&
+        childCheckCount !== node?.children?.length) ||
       (boxState === STATES.UNCHECKED && childCheckCount > 0)
     ) {
       setForceUpdateChildren(true);
@@ -111,10 +113,10 @@ const TreeNode = ({
     } else {
       value = forceUpdate
         ? forceValue
-        : (childCheckCount > 0 && childCheckCount < node.children.length) ||
+        : (childCheckCount > 0 && childCheckCount < node?.children?.length) ||
           childIndeterminateCount > 0
         ? STATES.INDETERMIATE
-        : childCheckCount > 0 && childCheckCount === node.children.length
+        : childCheckCount > 0 && childCheckCount === node?.children?.length
         ? STATES.CHECKED
         : STATES.UNCHECKED;
     }
@@ -164,12 +166,12 @@ const TreeNode = ({
   };
 
   const handleExpand = () => {
-    console.log("Handle Expand called");
     setIsExpanded(!isExpanded);
   };
 
   return (
     <TreeNodeView
+      ref={currentNodeRef}
       node={node}
       isExpanded={isExpanded}
       handleExpand={handleExpand}
@@ -180,11 +182,30 @@ const TreeNode = ({
       forceUpdate={forceUpdateChildren}
       updateResponse={updateResponse}
       isIndeterminate={boxState === STATES.INDETERMIATE}
-      currentNodeRef={currentNodeRef}
       handleCheck={handleCheck}
       updateParent={handleChildCheck}
     />
   );
+};
+
+TreeNode.propTypes = {
+  data: PropTypes.array,
+  getCheckedMap: PropTypes.func,
+  node: PropTypes.object,
+  updateResponse: PropTypes.func,
+  updateParent: PropTypes.func,
+  forceUpdate: PropTypes.bool,
+  forceValue: PropTypes.number,
+};
+
+TreeNode.defaultProps = {
+  data: [],
+  getCheckedMap: noop,
+  node: {},
+  updateResponse: noop,
+  updateParent: noop,
+  forceUpdate: false,
+  forceValue: STATES.UNCHECKED,
 };
 
 export default TreeNode;

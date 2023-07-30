@@ -21,17 +21,9 @@ function App() {
     { id: "0-1", parentId: null, name: "Soccer" },
   ];
 
-  const getCheckedMap = (map) => {
-    console.log(map);
-  };
-
   return (
     <>
-      <CheckboxTree
-        data={data}
-        getCheckedMap={getCheckedMap}
-        activeColor="#41c3a9"
-      />
+      <CheckboxTree data={data} activeColor="#41c3a9" />
     </>
   );
 }

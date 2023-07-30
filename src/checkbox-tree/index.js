@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TreeNode from "./tree-node";
 import styles from "./checkbox-tree.module.css";
-import { createNestedArray } from "../utils/helpers";
+import { createNestedArray, noop } from "../utils/helpers";
 import CheckboxTreeContext from "../contexts/checkbox-tree-context";
+import PropTypes from "prop-types";
 
 const CheckboxTree = ({ data, getCheckedMap }) => {
   const [checkedItems, setCheckedItems] = useState({});
@@ -30,11 +31,7 @@ const CheckboxTree = ({ data, getCheckedMap }) => {
         {data.map((node) => (
           <li key={node.id}>
             <span className={pathLine} />
-            <TreeNode
-              node={node}
-              updateResponse={updateResponse}
-              updateParent={() => {}}
-            />
+            <TreeNode node={node} updateResponse={updateResponse} />
           </li>
         ))}
       </ul>
@@ -54,6 +51,16 @@ const dataMapper = (OriginalComponent) => {
       </>
     );
   };
+};
+
+CheckboxTree.propTypes = {
+  data: PropTypes.array,
+  getCheckedMap: PropTypes.func,
+};
+
+CheckboxTree.defaultProps = {
+  data: [],
+  getCheckedMap: noop,
 };
 
 export default dataMapper(CheckboxTree);
