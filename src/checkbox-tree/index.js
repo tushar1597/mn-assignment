@@ -23,6 +23,7 @@ const CheckboxTree = ({ data }) => {
         {data.map((node) => (
           <li key={node.id}>
             <span className={pathLine} />
+            {/* <span className={hidder} /> */}
             <TreeNode
               node={node}
               onCheck={handleCheck}

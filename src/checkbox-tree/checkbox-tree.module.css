@@ -32,7 +32,7 @@
   /* border: 1px solid black; */
 }
 
-.list li:last-child .pathLine {
+.list li:last-child > .pathLine {
   /* background-color: cadetblue; */
   height: calc(100% - 2rem);
 }
@@ -45,13 +45,26 @@
   background-color: brown;
 } */
 
-.list li:last-child .hidderr {
+.list > li:last-child > .hidder {
+  width: 4px;
+  height: calc(2rem);
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  /* background-color: rgb(119, 29, 119); */
+  left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
+  bottom: 0;
+  transform: translate(-50%, 0);
+  z-index: 1;
+}
+
+.list > li:last-child > .checkboxLineWrapper .hidder {
   width: 4px;
   height: 50%;
   display: block;
   position: absolute;
-  /* background-color: #fff; */
-  background-color: blue;
+  background-color: #fff;
+  /* background-color: blue; */
   left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
   bottom: 0;
   transform: translate(-50%, 0);
@@ -63,13 +76,27 @@
 .list > li:first-child {
   /* background-color: aqua; */
 }
-.list > li:first-child > .checkboxLineWrapper > .hidderr {
+
+.list > li:first-child > .hidder {
+  width: 4px;
+  height: calc(0.563rem);
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  /* background-color: rgb(255, 0, 132); */
+  z-index: 1;
+  left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
+  top: 0;
+  transform: translate(-50%, 0);
+}
+
+.list > li:first-child > .checkboxLineWrapper > .hidder {
   width: 4px;
   height: 50%;
   display: block;
   position: absolute;
-  /* background-color: #fff; */
-  background-color: red;
+  background-color: #fff;
+  /* background-color: red; */
   z-index: 1;
   left: calc(2rem + 0.563rem); /* padding-left + 1/2 checkbox width */
   top: 0;

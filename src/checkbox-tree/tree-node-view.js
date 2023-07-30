@@ -48,6 +48,9 @@ const TreeNodeView = ({
         ) : null}
 
         <span className={itemPathLine} />
+        {node.children && node.children.length > 0 ? null : (
+          <span className={hidder} />
+        )}
         <Checkbox
           label={node.name}
           isIndeterminate={isIndeterminate}
@@ -69,7 +72,7 @@ const TreeNodeView = ({
           {/* <span className={pathLine} /> */}
           {node.children.map((child) => (
             <li key={child.id}>
-              {child.children && child.children.length > 0 && isExpanded ? (
+              {child.children && child.children.length > 0 ? (
                 <>
                   <span className={hidder} />
                   <span className={pathLine} />
