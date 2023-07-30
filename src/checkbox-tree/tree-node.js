@@ -1,13 +1,6 @@
-// Working code
 import React, { useEffect, useState, useRef } from "react";
-import CheckboxTree from "./checkbox-tree";
-import Checkbox from "./components/checkbox";
-
-const STATES = {
-  UNCHECKED: 1,
-  INDETERMIATE: 2,
-  CHECKED: 3,
-};
+import { STATES } from "../utils/constants";
+import TreeNodeView from "./tree-node-view";
 
 const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
   const [boxState, setBoxState] = useState(
@@ -214,7 +207,7 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
       forceUpdate,
       forceUpdateChildren,
       forceValue,
-      // isChecked,
+      isChecked: boxState === STATES.CHECKED,
       boxState,
       // childCheckedCount: getChildCheckedCount(),
       childCheckCount,
@@ -224,178 +217,56 @@ const TreeNode = ({ node, onCheck, updateParent, forceUpdate, forceValue }) => {
   };
 
   return (
-    <div>
-      {node.children.length > 0 ? (
-        <button onClick={handleExpand}>{isExpanded ? "-" : "+"}</button>
-      ) : null}
-      <input
-        type="checkbox"
-        checked={boxState === STATES.CHECKED}
-        onChange={handleCheck}
-        id={node.id}
-        ref={currentNodeRef}
-      />
-      <label for={node.id}>{node.name}</label>
-      {/* <button onClick={getDetails}>get</button> */}
-      {node.children && node.children.length > 0 && (
-        <ul>
-          {node.children.map((child) => (
-            <li key={child.id}>
-              <TreeNode
-                node={child}
-                getDetails={getDetails}
-                onCheck={onCheck}
-                updateParent={handleChildCheck}
-                forceUpdate={forceUpdateChildren}
-                forceValue={
-                  boxState === STATES.CHECKED
-                    ? STATES.CHECKED
-                    : STATES.UNCHECKED
-                }
-              />
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    // <div>
+    //   {node.children.length > 0 ? (
+    //     <button onClick={handleExpand}>{isExpanded ? "-" : "+"}</button>
+    //   ) : null}
+    //   <input
+    //     type="checkbox"
+    //     checked={boxState === STATES.CHECKED}
+    //     onChange={handleCheck}
+    //     id={node.id}
+    //     ref={currentNodeRef}
+    //   />
+    //   <label for={node.id}>{node.name}</label>
+    //   {/* <button onClick={getDetails}>get</button> */}
+    //   {node.children && node.children.length > 0 && (
+    //     <ul>
+    //       {node.children.map((child) => (
+    //         <li key={child.id}>
+    //           <TreeNode
+    //             node={child}
+    //             onCheck={onCheck}
+    //             updateParent={handleChildCheck}
+    //             forceUpdate={forceUpdateChildren}
+    //             forceValue={
+    //               boxState === STATES.CHECKED
+    //                 ? STATES.CHECKED
+    //                 : STATES.UNCHECKED
+    //             }
+    //           />
+    //         </li>
+    //       ))}
+    //     </ul>
+    //   )}
+    // </div>
+    <TreeNodeView
+      node={node}
+      isExpanded={isExpanded}
+      handleExpand={handleExpand}
+      isChecked={boxState === STATES.CHECKED}
+      forceValue={
+        boxState === STATES.CHECKED ? STATES.CHECKED : STATES.UNCHECKED
+      }
+      forceUpdate={forceUpdateChildren}
+      onCheck={onCheck}
+      //   getDetails={getDetails}
+      isIndeterminate={boxState === STATES.INDETERMIATE}
+      currentNodeRef={currentNodeRef}
+      handleCheck={handleCheck}
+      updateParent={handleChildCheck}
+    />
   );
 };
 
-const CheckboxTree2 = ({ data }) => {
-  const [checkedItems, setCheckedItems] = useState({});
-
-  const handleCheck = (itemId, isChecked) => {
-    setCheckedItems((prevState) => ({
-      ...prevState,
-      [itemId]: isChecked,
-    }));
-  };
-
-  // console.log(checkedItems);
-
-  return (
-    <div>
-      <h3>Checkbox Tree</h3>
-      <ul>
-        {data.map((node) => (
-          <li key={node.id}>
-            <TreeNode
-              node={node}
-              onCheck={handleCheck}
-              updateParent={() => {}}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-const Demo = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e, e.target[0].value);
-  };
-
-  return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <label for="c1">Coding</label>
-        <input type="checkbox" id="c1" checked />
-        <button type="submit">Submit</button>
-      </form>
-    </>
-  );
-};
-
-function App() {
-  const data = [
-    {
-      id: "0-0",
-      parentId: null,
-      name: "Sports",
-      children: [
-        {
-          id: "0-0-0",
-          parentId: "0-0",
-          name: "IPL",
-          children: [
-            {
-              id: "0-0-0-0",
-              parentId: "0-0-0",
-              name: "Mumbai Indians",
-              defaultState: 3,
-              children: [
-                {
-                  id: "0-0-0-0-0",
-                  parentId: "0-0-0-0",
-                  name: "Rohit Sharma",
-                  // defaultState: 3,
-                  children: [],
-                },
-                {
-                  id: "0-0-0-0-1",
-                  parentId: "0-0-0-0",
-                  name: "hardik Pandaye",
-                  // defaultState: 3,
-                  children: [],
-                },
-                {
-                  id: "0-0-0-0-2",
-                  parentId: "0-0-0-0",
-                  name: "Surya Kumar",
-                  // defaultState: 3,
-                  children: [],
-                },
-              ],
-            },
-            {
-              id: "0-0-0-1",
-              parentId: "0-0-0",
-              name: "Rajasthan Royals",
-              // defaultState: 3,
-              children: [],
-            },
-            {
-              id: "0-0-0-2",
-              parentId: "0-0-0",
-              name: "Gujarat Titans",
-              defaultState: 3,
-              children: [],
-            },
-          ],
-        },
-        {
-          id: "0-0-1",
-          parentId: "0-0",
-          name: "EPL",
-          children: [
-            { id: "0-0-1-0", parentId: "0-0-1", name: "Arsenal", children: [] },
-            { id: "0-0-1-1", parentId: "0-0-1", name: "Chelsea", children: [] },
-            {
-              id: "0-0-1-2",
-              parentId: "0-0-1",
-              name: "Manchester United",
-              children: [],
-            },
-          ],
-        },
-        { id: "0-0-2", parentId: "0-0", name: "NBA", children: [] },
-      ],
-    },
-    { id: "0-1", parentId: null, name: "Soccer", children: [] },
-    { id: "0-2", parentId: null, name: "Rugby", children: [] },
-  ];
-
-  console.log(data.length);
-
-  return (
-    <>
-      <CheckboxTree data={data} />
-      <Checkbox label={"Hello"} />
-    </>
-  );
-  // return <Demo />;
-}
-
-export default App;
+export default TreeNode;
