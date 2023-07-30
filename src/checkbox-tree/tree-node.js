@@ -129,7 +129,6 @@ const TreeNode = ({
     updateParent(node.id, value);
     updateResponse(
       node.id,
-      //   boxState === STATES.UNCHECKED ? STATES.CHECKED : STATES.UNCHECKED
       value === STATES.CHECKED ? STATES.CHECKED : STATES.UNCHECKED
     );
   };

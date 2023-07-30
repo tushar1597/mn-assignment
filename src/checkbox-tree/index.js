@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TreeNode from "./tree-node";
 import styles from "./checkbox-tree.module.css";
 import { createNestedArray } from "../utils/helpers";
+import CheckboxTreeContext from "../contexts/checkbox-tree-context";
 
 const CheckboxTree = ({ data, getCheckedMap }) => {
   const [checkedItems, setCheckedItems] = useState({});
@@ -42,10 +43,16 @@ const CheckboxTree = ({ data, getCheckedMap }) => {
 };
 
 const dataMapper = (OriginalComponent) => {
-  return function ({ data, ...props }) {
+  return function ({ data, activeColor, ...props }) {
     const nestedArray = createNestedArray(data);
 
-    return <OriginalComponent {...props} data={nestedArray} />;
+    return (
+      <>
+        <CheckboxTreeContext.Provider value={{ activeColor }}>
+          <OriginalComponent {...props} data={nestedArray} />
+        </CheckboxTreeContext.Provider>
+      </>
+    );
   };
 };
 

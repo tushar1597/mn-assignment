@@ -27,7 +27,11 @@ function App() {
 
   return (
     <>
-      <CheckboxTree data={data} getCheckedMap={getCheckedMap} />
+      <CheckboxTree
+        data={data}
+        getCheckedMap={getCheckedMap}
+        activeColor="#41c3a9"
+      />
     </>
   );
 }

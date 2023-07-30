@@ -1,7 +1,9 @@
+import { useContext, useEffect } from "react";
 import Checkbox from "../components/checkbox";
 import ExpandButton from "../components/expand-button";
 import styles from "./checkbox-tree.module.css";
 import TreeNode from "./tree-node";
+import CheckboxTreeContext from "../contexts/checkbox-tree-context";
 
 const TreeNodeView = ({
   node,
@@ -27,6 +29,12 @@ const TreeNodeView = ({
     hidder,
   } = styles;
 
+  const { activeColor } = useContext(CheckboxTreeContext);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty("--active-color", activeColor);
+  }, [activeColor]);
+
   return (
     <>
       <span className={checkboxLineWrapper}>
@@ -41,7 +49,7 @@ const TreeNodeView = ({
           <span className={hidder} />
         )}
         <Checkbox
-          label={`${node?.name} ${node?.id}`}
+          label={node?.name}
           isIndeterminate={isIndeterminate}
           onChange={handleCheck}
           isChecked={isChecked}
