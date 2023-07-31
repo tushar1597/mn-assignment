@@ -23,7 +23,7 @@ const TreeNode = ({
   const [isExpanded, setIsExpanded] = useState(true);
 
   useEffect(() => {
-    node?.children?.map(({ id, name, defaultState }) => {
+    node?.children?.map(({ id, defaultState }) => {
       childMapRef.current[id] = defaultState || STATES.UNCHECKED;
     });
 

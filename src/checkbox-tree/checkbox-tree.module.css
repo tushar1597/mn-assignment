@@ -115,3 +115,13 @@
   margin-left: 2rem;
   cursor: pointer;
 }
+
+.errorMessage {
+  font-family: "Poppins", sans-serif;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}

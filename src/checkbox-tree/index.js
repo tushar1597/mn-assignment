@@ -11,7 +11,7 @@ const CheckboxTree = ({
   submitBtnClasses,
   showSubmitBtn,
 }) => {
-  const { list, pathLine, parentList, submitBtn } = styles;
+  const { list, pathLine, parentList, submitBtn, errorMessage } = styles;
   const checkedItemsRef = useRef({});
 
   const updateResponse = (itemId, isChecked) => {
@@ -31,6 +31,15 @@ const CheckboxTree = ({
     }
   };
 
+  if (data.length === 0) {
+    return (
+      <p className={errorMessage}>
+        Either the data supplied is invalid or the data is not supplied. <br />
+        Please validate the data!
+      </p>
+    );
+  }
+
   return (
     <form>
       <ul className={`${list} ${parentList}`}>
@@ -41,7 +50,7 @@ const CheckboxTree = ({
           </li>
         ))}
       </ul>
-      {showSubmitBtn ? (
+      {showSubmitBtn && data.length > 0 ? (
         <button
           onClick={handleFetch}
           className={`${submitBtnClasses || submitBtn}`}
