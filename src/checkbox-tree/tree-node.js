@@ -95,6 +95,10 @@ const TreeNode = ({
     ) {
       setForceUpdateChildren(true);
     }
+    updateResponse(
+      node?.id,
+      boxState === STATES.CHECKED ? STATES.CHECKED : STATES.UNCHECKED
+    );
     return () => {
       clickedCheckBoxIdRef.current = null;
     };
@@ -129,10 +133,6 @@ const TreeNode = ({
 
     setBoxState(value);
     updateParent(node.id, value);
-    updateResponse(
-      node.id,
-      value === STATES.CHECKED ? STATES.CHECKED : STATES.UNCHECKED
-    );
   };
 
   const getChildCheckedCount = () => {

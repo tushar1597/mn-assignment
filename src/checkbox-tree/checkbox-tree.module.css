@@ -1,5 +1,5 @@
-.parentList {
-  padding: 2rem 0;
+.parentList.list {
+  padding: 2rem 2rem 0 2rem;
 }
 .parentList > li > .checkboxLineWrapper > .itemPathLine {
   display: none;
@@ -7,7 +7,7 @@
 
 .list {
   list-style: none;
-  padding-left: 2rem;
+  padding: 0 2rem;
   margin: 0;
   position: relative;
   box-sizing: border-box;
@@ -104,4 +104,14 @@
   top: 50%;
   z-index: 2;
   transform: translate(0, -50%);
+}
+
+.submitBtn {
+  padding: 0.5rem 2rem;
+  font-family: "Poppins", sans-serif;
+  background-color: #fff;
+  border: 1px solid #cad1d4;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+  cursor: pointer;
 }

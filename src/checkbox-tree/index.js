@@ -1,32 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef } from "react";
 import TreeNode from "./tree-node";
 import styles from "./checkbox-tree.module.css";
 import { createNestedArray, noop } from "../utils/helpers";
 import CheckboxTreeContext from "../contexts/checkbox-tree-context";
 import PropTypes from "prop-types";
 
-const CheckboxTree = ({ data, getCheckedMap }) => {
-  const [checkedItems, setCheckedItems] = useState({});
-  const { list, pathLine, parentList } = styles;
+const CheckboxTree = ({
+  data,
+  getCheckedMap,
+  submitBtnClasses,
+  showSubmitBtn,
+}) => {
+  const { list, pathLine, parentList, submitBtn } = styles;
+  const checkedItemsRef = useRef({});
 
   const updateResponse = (itemId, isChecked) => {
-    let newItems = { ...checkedItems };
-    if (checkedItems?.hasOwnProperty(itemId) && !isChecked) {
+    let newItems = { ...checkedItemsRef.current };
+    if (checkedItemsRef.current?.hasOwnProperty(itemId) && !isChecked) {
       delete newItems[itemId];
     } else if (isChecked) {
       newItems[itemId] = isChecked;
     }
-    setCheckedItems({ ...newItems });
+    checkedItemsRef.current = { ...newItems };
   };
 
-  useEffect(() => {
+  const handleFetch = (e) => {
+    e.preventDefault();
     if (typeof getCheckedMap === "function") {
-      getCheckedMap(checkedItems);
+      getCheckedMap({ ...(checkedItemsRef.current || {}) });
     }
-  }, [checkedItems]);
+  };
 
   return (
-    <div>
+    <form>
       <ul className={`${list} ${parentList}`}>
         {data.map((node) => (
           <li key={node.id}>
@@ -35,7 +41,15 @@ const CheckboxTree = ({ data, getCheckedMap }) => {
           </li>
         ))}
       </ul>
-    </div>
+      {showSubmitBtn ? (
+        <button
+          onClick={handleFetch}
+          className={`${submitBtnClasses || submitBtn}`}
+        >
+          Submit
+        </button>
+      ) : null}
+    </form>
   );
 };
 
@@ -56,11 +70,15 @@ const dataMapper = (OriginalComponent) => {
 CheckboxTree.propTypes = {
   data: PropTypes.array,
   getCheckedMap: PropTypes.func,
+  submitBtnClasses: PropTypes.string,
+  showSubmitBtn: PropTypes.bool,
 };
 
 CheckboxTree.defaultProps = {
   data: [],
   getCheckedMap: noop,
+  submitBtnClasses: "",
+  showSubmitBtn: false,
 };
 
 export default dataMapper(CheckboxTree);

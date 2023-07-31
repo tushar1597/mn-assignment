@@ -10,7 +10,11 @@ function App() {
       name: "Mumbai Indians",
     },
     { id: "0-0-1", parentId: "0-0", name: "EPL" },
-    { id: "0-0-0-1", parentId: "0-0-0", name: "Rajasthan Royals" },
+    {
+      id: "0-0-0-1",
+      parentId: "0-0-0",
+      name: "Rajasthan Royals",
+    },
     { id: "0-0-1-0", parentId: "0-0-1", name: "Arsenal" },
     { id: "0-2", parentId: null, name: "Rugby" },
     { id: "0-0", parentId: null, name: "Sports" },
@@ -21,9 +25,18 @@ function App() {
     { id: "0-1", parentId: null, name: "Soccer" },
   ];
 
+  const getCheckedMap = (map) => {
+    console.log(map);
+  };
+
   return (
     <>
-      <CheckboxTree data={data} activeColor="#41c3a9" />
+      <CheckboxTree
+        showSubmitBtn
+        data={data}
+        activeColor="#41c3a9"
+        getCheckedMap={getCheckedMap}
+      />
     </>
   );
 }
