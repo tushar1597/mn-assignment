@@ -15,19 +15,21 @@ const CheckboxTree = ({
   const checkedItemsRef = useRef({});
 
   const updateResponse = (itemId, isChecked) => {
-    let newItems = { ...checkedItemsRef.current };
-    if (checkedItemsRef.current?.hasOwnProperty(itemId) && !isChecked) {
-      delete newItems[itemId];
-    } else if (isChecked) {
-      newItems[itemId] = isChecked;
-    }
-    checkedItemsRef.current = { ...newItems };
+    checkedItemsRef.current[itemId] = isChecked;
   };
 
   const handleFetch = (e) => {
     e.preventDefault();
+    let allItems = { ...checkedItemsRef.current };
+    let checkedItems = {};
+    Object.keys(allItems).forEach((key) => {
+      if (allItems[key]) {
+        checkedItems[key] = allItems[key];
+      }
+    });
+
     if (typeof getCheckedMap === "function") {
-      getCheckedMap({ ...(checkedItemsRef.current || {}) });
+      getCheckedMap(checkedItems);
     }
   };
 
